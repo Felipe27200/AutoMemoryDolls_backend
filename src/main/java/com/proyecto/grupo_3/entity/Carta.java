@@ -28,7 +28,7 @@ public class Carta
         referencedColumnName = "auto_memory_doll_id",
         nullable = false
     )
-    private AutoMemoryDolls autoMemoryDolls;
+    private AutoMemoryDoll autoMemoryDoll;
 
     @ManyToOne()
     @JoinColumn(
@@ -49,12 +49,12 @@ public class Carta
     public Carta() {
     }
 
-    public Carta(Long id, LocalDate fechaCreacion, String motivo, String contenido, AutoMemoryDolls autoMemoryDolls, Cliente cliente, CartaEstado cartaEstado) {
+    public Carta(Long id, LocalDate fechaCreacion, String motivo, String contenido, AutoMemoryDoll autoMemoryDoll, Cliente cliente, CartaEstado cartaEstado) {
         this.id = id;
         this.fechaCreacion = fechaCreacion;
         this.motivo = motivo;
         this.contenido = contenido;
-        this.autoMemoryDolls = autoMemoryDolls;
+        this.autoMemoryDoll = autoMemoryDoll;
         this.cliente = cliente;
         CartaEstado = cartaEstado;
     }
@@ -91,12 +91,12 @@ public class Carta
         this.contenido = contenido;
     }
 
-    public AutoMemoryDolls getAutoMemoryDolls() {
-        return autoMemoryDolls;
+    public AutoMemoryDoll getAutoMemoryDolls() {
+        return autoMemoryDoll;
     }
 
-    public void setAutoMemoryDolls(AutoMemoryDolls autoMemoryDolls) {
-        this.autoMemoryDolls = autoMemoryDolls;
+    public void setAutoMemoryDolls(AutoMemoryDoll autoMemoryDoll) {
+        this.autoMemoryDoll = autoMemoryDoll;
     }
 
     public Cliente getCliente() {

@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "auto_memory_dolls")
-public class AutoMemoryDolls
+public class AutoMemoryDoll
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,10 +19,10 @@ public class AutoMemoryDolls
     @Column(nullable = false)
     private boolean estado = true;
 
-    public AutoMemoryDolls() {
+    public AutoMemoryDoll() {
     }
 
-    public AutoMemoryDolls(Long id, String nombre, Integer edad, boolean estado) {
+    public AutoMemoryDoll(Long id, String nombre, Integer edad, boolean estado) {
         this.id = id;
         this.nombre = nombre;
         this.edad = edad;
