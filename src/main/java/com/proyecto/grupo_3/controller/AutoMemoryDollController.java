@@ -3,19 +3,20 @@ package com.proyecto.grupo_3.controller;
 import com.proyecto.grupo_3.entity.AutoMemoryDoll;
 import com.proyecto.grupo_3.error_handling.exception.GeneralException;
 import com.proyecto.grupo_3.response.BasicResponse;
+import com.proyecto.grupo_3.service.AutoMemoryDollService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.proyecto.grupo_3.service.AutoMemoryDollService;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("${apiPrefix}/auto-memory-dolls")
-public class AutoMemoryDollController {
-    private AutoMemoryDollService autoMemoryDollService;
+public class AutoMemoryDollController
+{
+    private final AutoMemoryDollService autoMemoryDollService;
 
     @Autowired
     public AutoMemoryDollController(AutoMemoryDollService autoMemoryDollService) {
@@ -49,6 +50,16 @@ public class AutoMemoryDollController {
         BasicResponse response = new BasicResponse(mensaje, "successfull");
 
         return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/cambiar-estado/{id}")
+    public ResponseEntity<AutoMemoryDoll> cambiarEstado(@PathVariable Long id)
+    {
+        this.validarId(id);
+
+        AutoMemoryDoll autoMemoryDoll = this.autoMemoryDollService.cambiarEstado(id);
+
+        return ResponseEntity.ok(autoMemoryDoll);
     }
 
     @GetMapping("/{id}")

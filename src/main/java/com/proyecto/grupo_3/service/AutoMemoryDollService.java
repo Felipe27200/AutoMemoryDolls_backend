@@ -14,7 +14,7 @@ import java.util.Optional;
 @Service
 public class AutoMemoryDollService
 {
-    private AutoMemoryDollRepository autoMemoryDollRepository;
+    private final AutoMemoryDollRepository autoMemoryDollRepository;
 
     @Autowired
     public AutoMemoryDollService(AutoMemoryDollRepository autoMemoryDollRepository) {
@@ -65,6 +65,18 @@ public class AutoMemoryDollService
         this.autoMemoryDollRepository.delete(autoMemoryDoll);
 
         return String.format("La Auto Memory Doll eliminado con id %d", id);
+    }
+
+    @Transactional
+    public AutoMemoryDoll cambiarEstado(Long id)
+    {
+        AutoMemoryDoll autoMemoryDoll = this.findByid(id);
+
+        autoMemoryDoll.setEstado(!autoMemoryDoll.isEstado());
+
+        autoMemoryDoll = this.autoMemoryDollRepository.save(autoMemoryDoll);
+
+        return autoMemoryDoll;
     }
 
     public void validarAutoMemoryDoll(AutoMemoryDoll autoMemoryDoll)
