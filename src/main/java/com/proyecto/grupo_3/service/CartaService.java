@@ -66,6 +66,9 @@ public class CartaService
     {
         Carta carta = this.findByid(id);
 
+        if (carta != null && carta.getCartaEstado() != null && !carta.getCartaEstado().getNombre().equalsIgnoreCase("borrador"))
+            throw new GeneralException("La carta debe estar en estado borrador para poder eliminarla");
+
         this.cartaRepository.delete(carta);
 
         return String.format("Carta eliminado con id %d", id);

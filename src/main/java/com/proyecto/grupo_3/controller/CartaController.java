@@ -54,7 +54,7 @@ public class CartaController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?>  delete(@PathVariable Long id)
+    public ResponseEntity<?> delete(@PathVariable Long id)
     {
         this.validarId(id);
 
@@ -94,6 +94,14 @@ public class CartaController {
             throw new GeneralException("La Memory Doll "
                     + carta.getAutoMemoryDolls().getNombre()
                     +" está inactiva");
+        }
+
+        if (this.autoMemoryDollService.countCartasProcesoByDoll(carta.getAutoMemoryDolls().getId()) > 5)
+        {
+            throw new GeneralException("La Doll "
+                + carta.getAutoMemoryDolls().getNombre()
+                + " cuenta con 5 o más cartas en proceso. Seleccione otra."
+            );
         }
     }
 
