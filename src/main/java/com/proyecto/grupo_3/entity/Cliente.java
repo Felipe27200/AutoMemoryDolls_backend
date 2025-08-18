@@ -1,6 +1,7 @@
 package com.proyecto.grupo_3.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "clientes")
@@ -12,11 +13,14 @@ public class Cliente
     private Long id;
 
     @Column(nullable = false)
+    @NotBlank(message = "El nombre es requerido.")
     private String nombre;
     @Column(nullable = false)
+    @NotBlank(message = "La ciudad es requerida.")
     private String ciudad;
     @Column(nullable = false, name = "info_contacto")
-    private String InfoContacto;
+    @NotBlank(message = "La información de contacto es requerida.")
+    private String infoContacto;
 
     public Cliente() {
     }
@@ -25,7 +29,7 @@ public class Cliente
         this.id = id;
         this.nombre = nombre;
         this.ciudad = ciudad;
-        InfoContacto = infoContacto;
+        this.infoContacto = infoContacto;
     }
 
     public Long getId() {
@@ -53,10 +57,10 @@ public class Cliente
     }
 
     public String getInfoContacto() {
-        return InfoContacto;
+        return infoContacto;
     }
 
     public void setInfoContacto(String infoContacto) {
-        InfoContacto = infoContacto;
+        this.infoContacto = infoContacto;
     }
 }
