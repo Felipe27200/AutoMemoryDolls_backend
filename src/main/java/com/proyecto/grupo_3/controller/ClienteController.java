@@ -1,4 +1,4 @@
-package com.proyecto.grupo_3;
+package com.proyecto.grupo_3.controller;
 
 import com.proyecto.grupo_3.entity.Cliente;
 import com.proyecto.grupo_3.error_handling.exception.GeneralException;
