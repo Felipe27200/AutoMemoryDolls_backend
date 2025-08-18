@@ -39,9 +39,11 @@ public class AutoMemoryDollService
             throw new NotFoundException("No se encontro la Auto Memory Doll con el id: " + id);
     }
 
-    public Integer countCartasProcesoByDoll(Long id)
+    public List<AutoMemoryDoll> findDollsDisponibles()
     {
-        return this.autoMemoryDollRepository.countCartasProcesoByDoll(id);
+        List<AutoMemoryDoll> autoMemoryDolls = this.autoMemoryDollRepository.findDollsDisponibles();
+
+        return autoMemoryDolls;
     }
 
     public List<AutoMemoryDoll> findAll()

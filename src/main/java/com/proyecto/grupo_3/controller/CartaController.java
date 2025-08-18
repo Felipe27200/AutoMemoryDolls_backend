@@ -96,7 +96,7 @@ public class CartaController {
                     +" está inactiva");
         }
 
-        if (this.autoMemoryDollService.countCartasProcesoByDoll(carta.getAutoMemoryDolls().getId()) > 5)
+        if (this.cartaService.countCartasProcesoByDoll(carta.getAutoMemoryDolls().getId()) > 2)
         {
             throw new GeneralException("La Doll "
                 + carta.getAutoMemoryDolls().getNombre()

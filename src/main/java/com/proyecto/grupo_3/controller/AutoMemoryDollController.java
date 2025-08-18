@@ -76,6 +76,12 @@ public class AutoMemoryDollController
         return new ResponseEntity<>(this.autoMemoryDollService.findAll(), HttpStatus.OK);
     }
 
+    @GetMapping("/dolls-disponibles")
+    public ResponseEntity<List<AutoMemoryDoll>> findDollsDisponibles()
+    {
+        return new ResponseEntity<>(this.autoMemoryDollService.findDollsDisponibles(), HttpStatus.OK);
+    }
+
     private void validarAutoMemoryDoll(AutoMemoryDoll autoMemoryDoll)
     {
         if (autoMemoryDoll.getNombre() == null || autoMemoryDoll.getNombre().trim().isEmpty())

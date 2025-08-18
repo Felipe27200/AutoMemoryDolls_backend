@@ -62,6 +62,11 @@ public class CartaService
         return this.cartaRepository.save(oldCarta);
     }
 
+    public Integer countCartasProcesoByDoll(Long id)
+    {
+        return this.cartaRepository.countCartasProcesoByDoll(id);
+    }
+
     public String delete(Long id)
     {
         Carta carta = this.findByid(id);
