@@ -14,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("${apiPrefix}/auto-memory-dolls")
+@CrossOrigin(origins = "*")
 public class AutoMemoryDollController
 {
     private final AutoMemoryDollService autoMemoryDollService;

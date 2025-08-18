@@ -39,7 +39,35 @@ public class CartaService
         if (carta.isPresent())
             return carta.get();
         else
-            throw new NotFoundException("No se encontro el carta con el id: " + id);
+            throw new NotFoundException("No se encontro la carta con el id: " + id);
+    }
+
+    public List<Carta> findCartasByClienteId(Long clienteId)
+    {
+        List<Carta> cartas = this.cartaRepository.findCartasByClienteId(clienteId);
+
+        return cartas;
+    }
+
+    public List<Carta> findCartasByClienteIdAndEstado(String estado, Long clienteId)
+    {
+        List<Carta> cartas = this.cartaRepository.findCartasByClienteIdAndEstado(estado, clienteId);
+
+        return cartas;
+    }
+
+    public Carta findCartasByIdAndDollId(Long cartaId, Long dollId)
+    {
+        Carta carta = this.cartaRepository.findCartasByIdAndDollId(cartaId, dollId);
+
+        return carta;
+    }
+
+    public List<Carta> findCartasByDollId(Long dollId)
+    {
+        List<Carta> cartas = this.cartaRepository.findCartasByDollId(dollId);
+
+        return cartas;
     }
 
     public List<Carta> findAll()
@@ -76,7 +104,7 @@ public class CartaService
 
         this.cartaRepository.delete(carta);
 
-        return String.format("Carta eliminado con id %d", id);
+        return String.format("Carta eliminada con id %d", id);
     }
 
     public void validarCarta(Carta carta)

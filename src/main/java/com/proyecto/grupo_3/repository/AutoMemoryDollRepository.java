@@ -14,7 +14,7 @@ public interface AutoMemoryDollRepository extends JpaRepository<AutoMemoryDoll, 
         LEFT JOIN Carta c ON c.autoMemoryDoll = a AND c.CartaEstado.nombre IN ('borrador', 'enviado')
         WHERE a.estado = true
         GROUP BY a
-        HAVING COUNT(c) < 2
+        HAVING COUNT(c) < 5
         """)
     List<AutoMemoryDoll> findDollsDisponibles();
 }

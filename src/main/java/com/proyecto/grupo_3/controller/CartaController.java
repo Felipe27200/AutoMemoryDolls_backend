@@ -18,6 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("${apiPrefix}/cartas")
+@CrossOrigin(origins = "*")
 public class CartaController {
     private final CartaService cartaService;
     private final AutoMemoryDollService autoMemoryDollService;
@@ -39,6 +40,14 @@ public class CartaController {
 
         this.validarCarta(newCarta);
 
+        if (this.cartaService.countCartasProcesoByDoll(newCarta.getAutoMemoryDolls().getId()) >= 5)
+        {
+            throw new GeneralException("La Doll "
+                    + newCarta.getAutoMemoryDolls().getNombre()
+                    + " cuenta con 5 o más cartas en proceso. Seleccione otra."
+            );
+        }
+
         Carta nuevoCarta = this.cartaService.save(newCarta);
 
         return new ResponseEntity<>(nuevoCarta, HttpStatus.CREATED);
@@ -49,6 +58,14 @@ public class CartaController {
     {
         this.validarId(id);
         Carta carta = this.convertirDto(cartaDTO);
+
+        this.validarCarta(carta);
+
+        if (this.cartaService.findCartasByIdAndDollId(id, carta.getAutoMemoryDolls().getId()) == null
+            && this.cartaService.countCartasProcesoByDoll(carta.getAutoMemoryDolls().getId()) >= 5)
+        {
+            throw new GeneralException("Está doll tiene 5 o más cartas en proceso, selecione otra.");
+        }
 
         return new ResponseEntity<>(this.cartaService.update(carta, id), HttpStatus.OK);
     }
@@ -70,6 +87,33 @@ public class CartaController {
         this.validarId(id);
 
         return new ResponseEntity<>(this.cartaService.findByid(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/cartas-cliente/{clienteId}")
+    public ResponseEntity<List<Carta>> findCartasByClienteId(@PathVariable Long clienteId)
+    {
+        if (clienteId <= 0)
+            throw new GeneralException("clienteId debe ser mayor a cero");
+
+        return new ResponseEntity<>(this.cartaService.findCartasByClienteId(clienteId), HttpStatus.OK);
+    }
+
+    @GetMapping("/cartas-cliente/{clienteId}/estado/{estado}")
+    public ResponseEntity<List<Carta>> findCartasByClienteId(@PathVariable Long clienteId, @PathVariable String estado)
+    {
+        if (clienteId <= 0)
+            throw new GeneralException("Cliente Id debe ser mayor a cero");
+
+        return new ResponseEntity<>(this.cartaService.findCartasByClienteIdAndEstado(estado, clienteId), HttpStatus.OK);
+    }
+
+    @GetMapping("/cartas-doll/{dollId}")
+    public ResponseEntity<List<Carta>> findCartasByDollId(@PathVariable Long dollId)
+    {
+        if (dollId <= 0)
+            throw new GeneralException("Doll Id debe ser mayor a cero");
+
+        return new ResponseEntity<>(this.cartaService.findCartasByDollId(dollId), HttpStatus.OK);
     }
 
     @GetMapping("/")
@@ -94,14 +138,6 @@ public class CartaController {
             throw new GeneralException("La Memory Doll "
                     + carta.getAutoMemoryDolls().getNombre()
                     +" está inactiva");
-        }
-
-        if (this.cartaService.countCartasProcesoByDoll(carta.getAutoMemoryDolls().getId()) > 2)
-        {
-            throw new GeneralException("La Doll "
-                + carta.getAutoMemoryDolls().getNombre()
-                + " cuenta con 5 o más cartas en proceso. Seleccione otra."
-            );
         }
     }
 
