@@ -90,7 +90,7 @@ public class AutoMemoryDollController
     private void validarAutoMemoryDoll(AutoMemoryDoll autoMemoryDoll)
     {
         if (autoMemoryDoll.getNombre() == null || autoMemoryDoll.getNombre().trim().isEmpty())
-            throw new GeneralException("El nombre del cliente es requerido");
+            throw new GeneralException("El nombre de la doll es requerido");
         if (autoMemoryDoll.getEdad() == null || autoMemoryDoll.getEdad() <= 0)
             throw new GeneralException("La edad debe ser mayor a cero");
     }
@@ -98,7 +98,7 @@ public class AutoMemoryDollController
     private void validarId(Long id)
     {
         if (id == null || id <= 0)
-            throw new GeneralException("El id del cliente debe ser mayor a cero");
+            throw new GeneralException("El id de la doll debe ser mayor a cero");
 
     }
 }
