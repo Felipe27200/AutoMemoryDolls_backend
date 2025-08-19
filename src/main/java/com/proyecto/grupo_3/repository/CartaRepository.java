@@ -1,7 +1,9 @@
 package com.proyecto.grupo_3.repository;
 
 import com.proyecto.grupo_3.entity.Carta;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -23,4 +25,9 @@ public interface CartaRepository extends JpaRepository<Carta, Long> {
     List<Carta> findCartasByDollId(@Param("dollId") Long dollId);
     @Query("SELECT c FROM Carta c WHERE c.id = :cartaId AND c.autoMemoryDoll.id = :dollId")
     Carta findCartasByIdAndDollId(@Param("cartaId") Long cartaId, @Param("dollId") Long dollId);
+
+    @Transactional
+    @Modifying
+    @Query("DELETE FROM Carta c WHERE c.cliente.id = :clienteId")
+    int deleteByClienteId(@Param("clienteId") Long clienteId);
 }

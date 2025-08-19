@@ -3,6 +3,7 @@ package com.proyecto.grupo_3.controller;
 import com.proyecto.grupo_3.entity.Cliente;
 import com.proyecto.grupo_3.error_handling.exception.GeneralException;
 import com.proyecto.grupo_3.response.BasicResponse;
+import com.proyecto.grupo_3.service.CartaService;
 import com.proyecto.grupo_3.service.ClienteService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +18,12 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 public class ClienteController {
     private ClienteService clienteService;
+    private CartaService cartaService;
 
     @Autowired
-    public ClienteController(ClienteService clienteService) {
+    public ClienteController(ClienteService clienteService, CartaService cartaService) {
         this.clienteService = clienteService;
+        this.cartaService = cartaService;
     }
 
     @PostMapping("/")
@@ -46,6 +49,7 @@ public class ClienteController {
     {
         this.validarId(id);
 
+        this.cartaService.deleteByClienteId(id);
         String mensaje = this.clienteService.delete(id);
         BasicResponse response = new BasicResponse(mensaje, "successfull");
 
