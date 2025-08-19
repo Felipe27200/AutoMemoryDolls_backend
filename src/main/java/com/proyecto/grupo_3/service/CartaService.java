@@ -114,6 +114,13 @@ public class CartaService
         return String.format("Carta eliminada con Cliente Id %d", clienteId);
     }
 
+    public String deleteByDollId(Long dollId)
+    {
+        this.cartaRepository.deleteByClienteId(dollId);
+
+        return String.format("Carta eliminada con Cliente Id %d", dollId);
+    }
+
     public void validarCarta(Carta carta)
     {
         if (carta.getContenido() == null || carta.getContenido().trim().isEmpty())

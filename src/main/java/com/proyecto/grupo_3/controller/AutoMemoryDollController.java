@@ -4,6 +4,7 @@ import com.proyecto.grupo_3.entity.AutoMemoryDoll;
 import com.proyecto.grupo_3.error_handling.exception.GeneralException;
 import com.proyecto.grupo_3.response.BasicResponse;
 import com.proyecto.grupo_3.service.AutoMemoryDollService;
+import com.proyecto.grupo_3.service.CartaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,10 +19,12 @@ import java.util.List;
 public class AutoMemoryDollController
 {
     private final AutoMemoryDollService autoMemoryDollService;
+    private final CartaService cartaService;
 
     @Autowired
-    public AutoMemoryDollController(AutoMemoryDollService autoMemoryDollService) {
+    public AutoMemoryDollController(AutoMemoryDollService autoMemoryDollService, CartaService cartaService) {
         this.autoMemoryDollService = autoMemoryDollService;
+        this.cartaService = cartaService;
     }
 
     @PostMapping("/")
@@ -47,6 +50,7 @@ public class AutoMemoryDollController
     {
         this.validarId(id);
 
+        this.cartaService.deleteByDollId(id);
         String mensaje = this.autoMemoryDollService.delete(id);
         BasicResponse response = new BasicResponse(mensaje, "successfull");
 

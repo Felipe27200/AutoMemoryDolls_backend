@@ -30,4 +30,9 @@ public interface CartaRepository extends JpaRepository<Carta, Long> {
     @Modifying
     @Query("DELETE FROM Carta c WHERE c.cliente.id = :clienteId")
     int deleteByClienteId(@Param("clienteId") Long clienteId);
+
+    @Transactional
+    @Modifying
+    @Query("DELETE FROM Carta c WHERE c.autoMemoryDoll.id = :dollId")
+    int deleteByDollId(@Param("dollId") Long dollId);
 }
