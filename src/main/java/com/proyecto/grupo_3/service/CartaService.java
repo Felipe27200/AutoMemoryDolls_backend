@@ -116,7 +116,7 @@ public class CartaService
 
     public String deleteByDollId(Long dollId)
     {
-        this.cartaRepository.deleteByClienteId(dollId);
+        this.cartaRepository.deleteByDollId(dollId);
 
         return String.format("Carta eliminada con Cliente Id %d", dollId);
     }
